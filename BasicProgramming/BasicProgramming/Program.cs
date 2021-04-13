@@ -87,7 +87,7 @@ namespace BasicProgramming
                 Console.WriteLine("Press Enter To Continue");
                 Console.ReadLine();
                 Console.ResetColor();
-                Console.Clear();
+                
             }
 
             
@@ -103,7 +103,7 @@ namespace BasicProgramming
                 string inputChoice = Console.ReadLine();
                 Console.WriteLine();
 
-                //  
+                //  Try Parse
                 if (Int32.TryParse(inputChoice, out int input))
                 {
                     switch (input)
@@ -127,7 +127,7 @@ namespace BasicProgramming
                             }
                             catch (FormatException e)
                             {
-                                Console.WriteLine($"ERROR : {e}");
+                                ErrorMessage($"{e}");
                             }
 
                             //finally selalu dijalankan walaupun kode berhasil atau gagal
@@ -141,15 +141,14 @@ namespace BasicProgramming
                             // Print urut nama
                             Console.WriteLine("Please Input Your Name");
                             string name = Console.ReadLine();
+                            Console.ForegroundColor = ConsoleColor.Green;
                             for (int i = 0; i < name.Length; i++)
                             {
                                 Console.WriteLine($"Huruf ke {i + 1} adalah {name[i]}");
                             }
-
-                            //restart
-                            RestartMessage();
-                            yes = Console.ReadLine();
-                            ask = RestartValue(yes);
+                            Console.ResetColor();
+                            
+                            RestartProgram(ref ask);
                             break;
                         case 3:
                             //print karakter urutan genap
@@ -158,40 +157,42 @@ namespace BasicProgramming
 
                             // index array mulai dari 0
                             // index genap mulai dari 1
+                            Console.ForegroundColor = ConsoleColor.Green;
                             for (int i = 1; i < nameGenap.Length; i += 2)
                             {
                                 Console.WriteLine($"Karakter Genap : {nameGenap[i]}");
                             }
-
-                            //restart
-                            RestartMessage();
-                            yes = Console.ReadLine();
-                            ask = RestartValue(yes);
+                            Console.ResetColor();
+                            RestartProgram(ref ask);
                             break;
                         case 4:
-
-                            Console.WriteLine("Please Input the Array Size");
-                            // masukkan maximum array
-                            int arraySize = Int32.Parse(Console.ReadLine());
-
-                            Console.WriteLine("Please Input the Array Value");
-
-                            // menampung value integer
-                            int[] arrValue = new int[arraySize];
-
-                            for (int i = 0; i < arraySize; i++)
+                            
+                            try
                             {
-                                Console.Write($"index ke - {i} : ");
-                                arrValue[i] = int.Parse(Console.ReadLine());
+                                // masukkan maximum array
+                                Console.WriteLine("Please Input the Array Size");
+                                int arraySize = Int32.Parse(Console.ReadLine());
+
+                                // menampung value integer
+                                Console.WriteLine("Please Input the Array Value");
+                                int[] arrValue = new int[arraySize];
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                for (int i = 0; i < arraySize; i++)
+                                {
+                                    Console.Write($"index ke - {i} : ");
+                                    arrValue[i] = int.Parse(Console.ReadLine());
+                                }
+                                Console.WriteLine("Result");
+                                Console.WriteLine(arrValue.Sum());
+                                Console.ResetColor();
+                            }
+                            catch (FormatException e)
+                            {
+                                
+                                ErrorMessage($"{e}");
                             }
 
-                            Console.WriteLine("Result");
-                            Console.WriteLine(arrValue.Sum());
-
-                            //restart
-                            RestartMessage();
-                            yes = Console.ReadLine();
-                            ask = RestartValue(yes);
+                            RestartProgram(ref ask);
                             break;
 
                         default:
@@ -203,14 +204,15 @@ namespace BasicProgramming
                 // Jika kosong
                 else if (inputChoice == null || inputChoice == "")
                 {
-                    ErrorMessage("Input Value is : ",inputChoice);
+                    ErrorMessage("Input Value is : Null");
+                    Console.Clear();
                 }
                 
                 // Jika Selain angka bulat
                 else
                 {
                     ErrorMessage("Invalid Input : ",inputChoice);
-
+                    Console.Clear();
                 }
             }
             EndMessage("Exit : Bye Bye ");
