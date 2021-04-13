@@ -8,6 +8,17 @@ namespace BasicProgramming
 {
     class Program
     {
+        static void RestartProgram(ref bool ask)
+        {
+            Console.WriteLine();
+            Console.WriteLine("type yes to restart program");
+            string yesAsk = Console.ReadLine();
+            if (yesAsk.ToLower() != "yes")
+            {
+                ask = false;
+            }
+            Console.Clear();
+        }
 
         static void Main(string[] args)
         {
@@ -122,9 +133,7 @@ namespace BasicProgramming
                             //finally selalu dijalankan walaupun kode berhasil atau gagal
                             finally
                             {
-                                RestartMessage();
-                                yes = Console.ReadLine();
-                                ask = RestartValue(yes);
+                                RestartProgram(ref ask);
                             }
                             break;
 
