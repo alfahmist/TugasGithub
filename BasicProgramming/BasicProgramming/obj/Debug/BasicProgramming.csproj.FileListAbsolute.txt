@@ -1,0 +1,7 @@
+C:\Users\Alpha\Documents\GitHub\TugasGithub\BasicProgramming\BasicProgramming\bin\Debug\BasicProgramming.exe.config
+C:\Users\Alpha\Documents\GitHub\TugasGithub\BasicProgramming\BasicProgramming\bin\Debug\BasicProgramming.exe
+C:\Users\Alpha\Documents\GitHub\TugasGithub\BasicProgramming\BasicProgramming\bin\Debug\BasicProgramming.pdb
+C:\Users\Alpha\Documents\GitHub\TugasGithub\BasicProgramming\BasicProgramming\obj\Debug\BasicProgramming.csprojAssemblyReference.cache
+C:\Users\Alpha\Documents\GitHub\TugasGithub\BasicProgramming\BasicProgramming\obj\Debug\BasicProgramming.csproj.CoreCompileInputs.cache
+C:\Users\Alpha\Documents\GitHub\TugasGithub\BasicProgramming\BasicProgramming\obj\Debug\BasicProgramming.exe
+C:\Users\Alpha\Documents\GitHub\TugasGithub\BasicProgramming\BasicProgramming\obj\Debug\BasicProgramming.pdb

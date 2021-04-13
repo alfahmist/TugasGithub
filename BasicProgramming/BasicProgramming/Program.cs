@@ -12,12 +12,38 @@ namespace BasicProgramming
         static void Main(string[] args)
         {
             String yes;
+            bool ask = true;
+
+            void BmiOutput(double bmi)
+            {
+                string message;
+                Console.ForegroundColor = ConsoleColor.Green;
+                if (bmi < 18.1)
+                {
+                    Console.WriteLine($"Your BMI's {bmi} You're Underweight");
+                }
+                else if (bmi >= 18.1 && bmi <= 23.1)
+                {
+                    Console.WriteLine($"Your BMI's {bmi} You're Normal");
+                }
+                else if (bmi >= 23.1 && bmi <= 28.1)
+                {
+                    Console.WriteLine($"Your BMI's {bmi} You're Overweight");
+                }
+                else if (bmi >= 28.1)
+                {
+                    Console.WriteLine($"Your BMI's {bmi} You're Obesitas");
+                }
+                Console.ResetColor();
+            }
+
+            //Restart method
             void RestartMessage()
             {
                 Console.WriteLine();
                 Console.WriteLine("type yes to restart program");
-            }
 
+            }
             bool RestartValue(String yesAsk)
             {
                 bool askRestart = true;
@@ -25,10 +51,35 @@ namespace BasicProgramming
                 {
                     askRestart = false;
                 }
+                Console.Clear();
                 return askRestart;
             }
 
-            bool ask = true;
+            //Enter to continue
+            void EndMessage(string message)
+            {
+                Console.Clear();
+                Console.WriteLine(message);
+                
+            }
+
+            void ErrorMessage(params string[] messages)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("ERROR : ");
+                foreach(string message in messages)
+                {
+                    Console.Write($"{message}");
+                }
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Press Enter To Continue");
+                Console.ReadLine();
+                Console.ResetColor();
+                Console.Clear();
+            }
+
+            
 
             while (ask)
             {
@@ -38,114 +89,122 @@ namespace BasicProgramming
 
                 Console.WriteLine();
                 Console.WriteLine("Please input a number : ");
-                String input = Console.ReadLine();
+                string inputChoice = Console.ReadLine();
                 Console.WriteLine();
 
-                switch (input)
+                //  
+                if (Int32.TryParse(inputChoice, out int input))
                 {
-                    case "1":
-                        //BMI
-                        double bmi;
-                        Console.WriteLine("Input Your Weight (Kg)");
-                        double weight = Double.Parse(Console.ReadLine());
-                        Console.WriteLine("Input Your Height (Cm)");
-                        double height = Double.Parse(Console.ReadLine());
-                        Console.WriteLine();
+                    switch (input)
+                    {
+                        case 1:
+                            //BMI
+                            double bmi;
+                            double weight;
+                            double height;
+                            try
+                            {
+                                
+                                Console.WriteLine("Input Your Weight (Kg)");
+                                weight = Double.Parse(Console.ReadLine());
+                                Console.WriteLine("Input Your Height (Cm)");
+                                height = Double.Parse(Console.ReadLine());
+                                Console.WriteLine();
+                                bmi = Math.Round(weight / (Math.Pow(height / 100, 2)), 1);
+                                BmiOutput(bmi);
 
-                        bmi = Math.Round(weight / (Math.Pow(height / 100, 2)), 1);
+                            }
+                            catch (FormatException e)
+                            {
+                                Console.WriteLine($"ERROR : {e}");
+                            }
 
-                        //Kurang dari 18.1, maka kamu underweight.
-                        //Antara 18.1 – 23.1, maka kamu normal.
-                        //Antara 23.1 – 28.1, maka kamu overweight.
-                        //Lebih dari 28.1, maka kamu obesitas.
+                            //finally selalu dijalankan walaupun kode berhasil atau gagal
+                            finally
+                            {
+                                RestartMessage();
+                                yes = Console.ReadLine();
+                                ask = RestartValue(yes);
+                            }
+                            break;
 
-                        if (bmi < 18.1)
-                        {
-                            Console.WriteLine($"Your BMI's {bmi} You're Underweight");
-                        }
-                        else if (bmi >= 18.1 && bmi <= 23.1)
-                        {
-                            Console.WriteLine($"Your BMI's {bmi} You're Normal");
-                        }
-                        else if (bmi >= 23.1 && bmi <= 28.1)
-                        {
-                            Console.WriteLine($"Your BMI's {bmi} You're Overweight");
-                        }
-                        else if (bmi >= 28.1)
-                        {
-                            Console.WriteLine($"Your BMI's {bmi} You're Obesitas");
-                        }
+                        case 2:
+                            // Print urut nama
+                            Console.WriteLine("Please Input Your Name");
+                            string name = Console.ReadLine();
+                            for (int i = 0; i < name.Length; i++)
+                            {
+                                Console.WriteLine($"Huruf ke {i + 1} adalah {name[i]}");
+                            }
 
-                        //restart
+                            //restart
+                            RestartMessage();
+                            yes = Console.ReadLine();
+                            ask = RestartValue(yes);
+                            break;
+                        case 3:
+                            //print karakter urutan genap
+                            Console.WriteLine("Please Input Your Name");
+                            string nameGenap = Console.ReadLine();
 
-                        RestartMessage();
-                        yes = Console.ReadLine();
-                        ask = RestartValue(yes);
-                        break;
+                            // index array mulai dari 0
+                            // index genap mulai dari 1
+                            for (int i = 1; i < nameGenap.Length; i += 2)
+                            {
+                                Console.WriteLine($"Karakter Genap : {nameGenap[i]}");
+                            }
 
-                    case "2":
-                        // Print urut nama
-                        Console.WriteLine("Please Input Your Name");
-                        string name = Console.ReadLine();
-                        for (int i = 0; i < name.Length; i++)
-                        {
-                            Console.WriteLine($"Huruf ke {i + 1} adalah {name[i]}");
-                        }
+                            //restart
+                            RestartMessage();
+                            yes = Console.ReadLine();
+                            ask = RestartValue(yes);
+                            break;
+                        case 4:
 
-                        //restart
-                        RestartMessage();
-                        yes = Console.ReadLine();
-                        ask = RestartValue(yes);
-                        break;
-                    case "3":
-                        //print karakter urutan genap
-                        Console.WriteLine("Please Input Your Name");
-                        string nameGenap = Console.ReadLine();
+                            Console.WriteLine("Please Input the Array Size");
+                            // masukkan maximum array
+                            int arraySize = Int32.Parse(Console.ReadLine());
 
-                        // index array mulai dari 0
-                        // index genap mulai dari 1
-                        for (int i = 1; i < nameGenap.Length; i += 2)
-                        {
-                            Console.WriteLine($"Karakter Genap : {nameGenap[i]}");
-                        }
+                            Console.WriteLine("Please Input the Array Value");
 
-                        //restart
-                        RestartMessage();
-                        yes = Console.ReadLine();
-                        ask = RestartValue(yes);
-                        break;
-                    case "4":
+                            // menampung value integer
+                            int[] arrValue = new int[arraySize];
 
-                        Console.WriteLine("Please Input the Array Size");
-                        // masukkan maximum array
-                        int arraySize = Int32.Parse(Console.ReadLine());
+                            for (int i = 0; i < arraySize; i++)
+                            {
+                                Console.Write($"index ke - {i} : ");
+                                arrValue[i] = int.Parse(Console.ReadLine());
+                            }
 
-                        Console.WriteLine("Please Input the Array Value");
+                            Console.WriteLine("Result");
+                            Console.WriteLine(arrValue.Sum());
 
-                        // menampung value integer
-                        int[] arrValue = new int[arraySize];
+                            //restart
+                            RestartMessage();
+                            yes = Console.ReadLine();
+                            ask = RestartValue(yes);
+                            break;
 
-                        for (int i = 0; i < arraySize; i++)
-                        {
-                            Console.Write($"index ke - {i} : ");
-                            arrValue[i] = int.Parse(Console.ReadLine());
-                        }
-
-                        Console.WriteLine("Result");
-                        Console.WriteLine(arrValue.Sum());
-
-                        //restart
-                        RestartMessage();
-                        yes = Console.ReadLine();
-                        ask = RestartValue(yes);
-                        break;
-                    default:
-                        Console.WriteLine("Please Input a number 1 - 4");
-                        break;
+                        default:
+                            ErrorMessage("Please Input a number 1 - 4");
+                            break;
+                    }
+                    Console.WriteLine();
                 }
+                // Jika kosong
+                else if (inputChoice == null || inputChoice == "")
+                {
+                    ErrorMessage("Input Value is : ",inputChoice);
+                }
+                
+                // Jika Selain angka bulat
+                else
+                {
+                    ErrorMessage("Invalid Input : ",inputChoice);
 
-                Console.WriteLine();
+                }
             }
+            EndMessage("Exit : Bye Bye ");
         }
     }
 }
