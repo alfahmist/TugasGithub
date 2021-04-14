@@ -48,24 +48,6 @@ namespace BasicProgramming
                 Console.ResetColor();
             }
 
-            //Restart method
-            void RestartMessage()
-            {
-                Console.WriteLine();
-                Console.WriteLine("type yes to restart program");
-
-            }
-            bool RestartValue(String yesAsk)
-            {
-                bool askRestart = true;
-                if (yesAsk.ToLower() != "yes")
-                {
-                    askRestart = false;
-                }
-                Console.Clear();
-                return askRestart;
-            }
-
             //Enter to continue
             void EndMessage(string message)
             {
